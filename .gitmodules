@@ -4,3 +4,6 @@
 [submodule "income-outcome"]
 	path = income-outcome
 	url = https://github.com/maki-home/income-outcome.git
+[submodule "moneygr"]
+	path = moneygr
+	url = https://github.com/maki-home/moneygr.git

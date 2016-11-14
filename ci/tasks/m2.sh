@@ -4,6 +4,7 @@
 M2REPO=`pwd`/m2/rootfs/opt/m2
 
 
+DIR="$DIR moneygr"
 DIR="$DIR income-outcome"
 DIR="$DIR uaa"
 
