@@ -1,7 +1,8 @@
 
 #/bin/sh
 
-M2REPO=`pwd`/m2/rootfs/opt/m2
+BASEDIR=`pwd`
+M2REPO=$BASEDIR/m2/rootfs/opt/m2
 
 
 DIR="$DIR moneygr"
@@ -17,14 +18,15 @@ cd repo
 	for d in $DIR;do
 	    echo "++++ Build $d ++++"
 	    cd $d
-	        artifactId=`./mvnw help:evaluate -Dexpression=project.artifactId -Dmaven.repo.local=$M2REPO | egrep -v '(^\[INFO])'`
+	    $BASEDIR/utils/scripts/add-repos-in-pom-xml.sh
+	    artifactId=`./mvnw help:evaluate -Dexpression=project.artifactId -Dmaven.repo.local=$M2REPO | egrep -v '(^\[INFO])'`
 		echo $artifactId
-	        ./mvnw clean package -Dmaven.repo.local=$M2REPO
+	    ./mvnw clean package -Dmaven.repo.local=$M2REPO
 	    cd ..
 	done
 cd ..
 
-cd m2
+cd $BASEDIR/m2
 	tar -C rootfs -cf rootfs.tar .
 	mv rootfs.tar ../to-push
 cd ..
