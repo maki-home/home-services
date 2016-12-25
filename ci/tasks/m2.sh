@@ -28,6 +28,7 @@ cd repo
 cd ..
 
 cd $BASEDIR/m2
+        rm -f `find . -name '_remote.repositories' -type f`
 	tar -C rootfs -cf rootfs.tar .
 	mv rootfs.tar ../to-push
 cd ..
