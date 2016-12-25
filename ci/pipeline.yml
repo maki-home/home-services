@@ -13,54 +13,66 @@ resources:
     source:
       uri: https://github.com/maki-home/home-services
       branch: master
+  - name: utils
+    type: git
+    source:
+      uri: https://github.com/maki-home/concourse-utils
+      branch: master
 jobs:
   - name: init-m2
     plan:
-      - get: home-repo
+      - aggregate:
+        - get: home-repo
+        - get: utils
       - task: build-m2
         config:
           platform: linux
           image_resource:
             type: docker-image
             source:
-              repository: java
-              tag: 8-jdk-alpine 
+              repository: making/alpine-java-bash-git
           inputs:
             - name: home-repo
               path: repo
+            - name: utils
           outputs:
             - name: to-push  
           run:
             path: sh 
             args: 
-            - repo/ci/tasks/m2.sh
-            - init
+            - -c
+            - |
+              repo/ci/tasks/m2.sh init
       - put: m2
         params:
           import_file: to-push/rootfs.tar
 
   - name: update-m2
     plan:
-      - get: home-repo
-      - get: m2
+      - aggregate:
+        - get: home-repo
+        - get: utils
+        - get: m2
       - task: build-m2
         config:
           platform: linux
           image_resource:
             type: docker-image
             source:
-              repository: java
-              tag: 8-jdk-alpine 
+              repository: making/alpine-java-bash-git
           inputs:
             - name: home-repo
               path: repo
+            - name: utils
             - name: m2
           outputs:
             - name: to-push    
           run:
             path: sh
-            args: 
-            - repo/ci/tasks/m2.sh
+            args:
+            - -c
+            - |
+              repo/ci/tasks/m2.sh
       - put: m2
         params:
           import_file: to-push/rootfs.tar
