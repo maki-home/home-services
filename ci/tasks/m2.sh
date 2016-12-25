@@ -21,7 +21,7 @@ cd repo
 	    $BASEDIR/utils/scripts/add-repos-in-pom-xml.sh
 	    artifactId=`./mvnw help:evaluate -Dexpression=project.artifactId -Dmaven.repo.local=$M2REPO | egrep -v '(^\[INFO])'`
 		echo $artifactId
-	    ./mvnw clean package -Dmaven.repo.local=$M2REPO
+	    ./mvnw clean package -Dmaven.repo.local=$M2REPO -DskipTests=true
 	    cd ..
 	done
 cd ..
