@@ -4,3 +4,7 @@
 [submodule "moneygr"]
 	path = moneygr
 	url = https://github.com/maki-home/moneygr.git
+[submodule "uaa"]
+	path = uaa
+	url = https://github.com/maki-home/uaa.git
+	branch = develop
