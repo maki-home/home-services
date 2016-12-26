@@ -1,7 +1,3 @@
-[submodule "uaa"]
-	path = uaa
-	url = https://github.com/maki-home/uaa.git
-	branch = develop
 [submodule "income-outcome"]
 	path = income-outcome
 	url = https://github.com/maki-home/income-outcome.git
