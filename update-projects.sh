@@ -1,3 +1,18 @@
 #!/bin/sh
+set -e
 
-git submodule foreach git pull origin master
+pushd income-outcome
+git pull origin master
+popd
+
+pushd moneygr
+git pull origin master
+popd
+
+pushd uaa
+git pull origin develop
+popd
+
+git add -A
+git commit -m "Update"
+git push origin master
