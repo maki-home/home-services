@@ -8,3 +8,6 @@
 	path = uaa
 	url = https://github.com/maki-home/uaa.git
 	branch = develop
+[submodule "account"]
+	path = account
+	url = https://github.com/maki-home/account.git

@@ -6,10 +6,14 @@ git pull origin master
 popd
 
 pushd moneygr
-git pull origin master
+git pull origin develop
 popd
 
 pushd uaa
+git pull origin develop
+popd
+
+pushd account
 git pull origin develop
 popd
 

@@ -8,6 +8,7 @@ M2REPO=$BASEDIR/m2/rootfs/opt/m2
 DIR="$DIR moneygr"
 DIR="$DIR income-outcome"
 DIR="$DIR uaa"
+DIR="$DIR account"
 
 
 if [ "$1" == "init" ]; then
