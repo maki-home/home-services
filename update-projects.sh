@@ -2,7 +2,7 @@
 set -e
 
 pushd income-outcome
-git pull origin master
+git pull origin develop
 popd
 
 pushd moneygr
