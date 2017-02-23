@@ -1,5 +1,10 @@
-
 ---
+resource_types:
+- name: slack-notification
+  type: docker-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+    tag: v1.1.3
 resources:
   - name: m2
     type: docker-image
@@ -18,6 +23,10 @@ resources:
     source:
       uri: https://github.com/maki-home/concourse-utils
       branch: master
+  - name: slack-alert
+    type: slack-notification
+    source:
+      url: {{slack-webhook-url}}
 jobs:
   - name: init-m2
     plan:
@@ -46,7 +55,18 @@ jobs:
       - put: m2
         params:
           import_file: to-push/rootfs.tar
-
+        on_success:
+          put: slack-alert
+          params:
+            channel: '#concourse'
+            text: |
+              <!here> :white_check_mark: *$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME* succeeded with build <$ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_NAME>!
+        on_failure:
+          put: slack-alert
+          params:
+            channel: '#concourse'
+            text: |
+              <!here> :rotating_light: *$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME* failed with build <$ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_NAME>!
   - name: update-m2
     plan:
       - aggregate:
@@ -76,3 +96,15 @@ jobs:
       - put: m2
         params:
           import_file: to-push/rootfs.tar
+        on_success:
+          put: slack-alert
+          params:
+            channel: '#concourse'
+            text: |
+              <!here> :white_check_mark: *$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME* succeeded with build <$ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_NAME>!
+        on_failure:
+          put: slack-alert
+          params:
+            channel: '#concourse'
+            text: |
+              <!here> :rotating_light: *$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME* failed with build <$ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_NAME>!
