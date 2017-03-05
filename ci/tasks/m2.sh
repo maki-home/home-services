@@ -9,6 +9,7 @@ DIR="$DIR moneygr"
 DIR="$DIR income-outcome"
 DIR="$DIR uaa"
 DIR="$DIR account"
+DIR="$DIR debt"
 
 
 if [ "$1" == "init" ]; then

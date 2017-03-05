@@ -11,3 +11,6 @@
 [submodule "account"]
 	path = account
 	url = https://github.com/maki-home/account.git
+[submodule "debt"]
+	path = debt
+	url = https://github.com/maki-home/debt.git

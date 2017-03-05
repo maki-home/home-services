@@ -17,6 +17,10 @@ pushd account
 git pull origin develop
 popd
 
+pushd debt
+git pull origin develop
+popd
+
 git add -A
 git commit -m "Update"
 git push origin master
