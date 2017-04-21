@@ -61,7 +61,7 @@ jobs:
             cf login -a ${CF_API} -u ${CF_USERNAME} -p ${CF_PASSWORD} -o ${CF_ORG} -s ${CF_SPACE}
 
             cf target -s home-dev
-            for app in income-outcome-dev account-dev moneygr-dev debt-dev api-dev home-uaa-dev;do
+            for app in income-outcome-dev account-dev moneygr-dev debt-dev api-dev;do
               cf stop ${app}
             done
             cf target -s home-staging
