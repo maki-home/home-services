@@ -137,6 +137,12 @@ jobs:
             args:
             - -c
             - |
+              set -e
+              utils/scripts/add-repos-in-pom-xml.sh repo/account
+              utils/scripts/add-repos-in-pom-xml.sh repo/debt
+              utils/scripts/add-repos-in-pom-xml.sh repo/income-outcome
+              utils/scripts/add-repos-in-pom-xml.sh repo/moneygr
+              utils/scripts/add-repos-in-pom-xml.sh repo/uaa
               repo/ci/tasks/m2.sh
       - put: m2
         params:
