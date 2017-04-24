@@ -9,10 +9,9 @@ resources:
   - name: m2
     type: docker-image
     source:
-      repository: making/home-m2
-      username: {{docker-username}}
-      password: {{docker-password}}  
-      email: {{docker-email}}  
+      repository: registry-192-168-11-210.sslip.io/making/home-m2
+      username: {{nexus-username}}
+      password: {{nexus-password}}
   - name: home-repo
     type: git
     source:
@@ -91,6 +90,12 @@ jobs:
             args: 
             - -c
             - |
+              set -e
+              utils/scripts/add-repos-in-pom-xml.sh repo/account
+              utils/scripts/add-repos-in-pom-xml.sh repo/debt
+              utils/scripts/add-repos-in-pom-xml.sh repo/income-outcome
+              utils/scripts/add-repos-in-pom-xml.sh repo/moneygr
+              utils/scripts/add-repos-in-pom-xml.sh repo/uaa
               repo/ci/tasks/m2.sh init
       - put: m2
         params:
